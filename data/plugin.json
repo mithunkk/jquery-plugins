@@ -1,0 +1,79 @@
+{
+    "docType": "",
+    "name": "myplugin",
+    "label": "My Super Plugin",
+    "license": [
+        "mit",
+        "gpl",
+        "http://my-license-that-is-evil.com/license.txt" 
+    ],
+    "copyright": "2010 Ben Alman",
+    "docs": "/docs/",
+    "clone": "http://github.com/appendto/jquery-mockjax.git",
+    "repository": "http://github.com/appendto/jquery-mockjax",
+    "screenshot": "http://plugins.com/screenshot.png",
+    "issues": "http://github.com/appendto/jquery-mockjax/issues",
+    "dependencies" : {
+        "jquery/jquery" : [
+            "1.4.2",
+            "1.3.2",
+            "1.2.6" 
+        ],
+        "jquery/jquery.ui.draggable" : "1.8.4" 
+    },
+    "rating": {
+        "unit-tests": 0,
+        "documentation": 0,
+        "supported": 0 
+    },
+    "authors": [
+        {
+            "name": "Ben Alman",
+            "email": "ben@alman.com",
+            "twitter": "cowboy" 
+        } 
+    ],
+    "versions": [
+        {
+            "version": "1.0.1",
+            "docs": "/docs/1.0.1.html" 
+        },
+        {
+            "version": "1.0.0",
+            "keywords": [
+                "ui",
+                "official" 
+            ],
+            "homeurl": "http://awesome-cowboy-plugins.com/myplugin",
+            "docs": "http://pluginsite.com/docs",
+            "tests": "http://pluginsite.com/unit",
+            "examples": [
+                {
+                    "name": "Demo Name 1",
+                    "description": "Awesome demo 1",
+                    "url": "http://plugins.com/demo1/" 
+                },
+                {
+                    "name": "Demo Name 2",
+                    "description": "Awesome demo 2",
+                    "url": "http://plugins.com/demo2/" 
+                },
+                {
+                    "name": "Demo Name 3",
+                    "description": "Awesome demo 3",
+                    "url": "http://plugins.com/demo3/" 
+                } 
+            ],
+            "screenshot" : "http://plugins.com/screenshot.png",
+            "issues" : "http://github.com/appendto/jquery-mockjax/issues",
+            "dependencies" : {
+                "jquery/jquery" : [
+                    "1.4.2",
+                    "1.3.2",
+                    "1.2.6" 
+                ],
+                "jquery/jquery.ui.draggable" : "1.8.4" 
+            } 
+        } 
+    ]
+}
