@@ -2,6 +2,7 @@ function(doc, req)
 {
   if(!doc)
   {
+    // Break out the user name and resource file name
     var resourceFields = req.path.pop().split('-'),
         user = req.path.pop();
 
@@ -13,26 +14,42 @@ function(doc, req)
     /* 
      * Reverse iter over the fields, figuring out the version. Version numbers
      * must start with an int.
+     *
+     * We're greedy and will eat up the entire file name if given the chance
+     * (ex., no version is specified).
      */
-    var version;
+    var version = '';
 
-    for(var field = resourceFields.pop(); 
-        resourceFields.length > 0; 
-        field = resourceFields.pop()
-    )
+    for(var field; resourceFields.length > 0 && !version.match(/^[0-9]/);)
     {
+      field = resourceFields.pop();
       version = (version) ? field+'-'+version : field;
-      
-      if(version.match(/^[0-9]/))
-        break;
     }
 
-    //TODO deal with getting latest if there is no version
+    // Determine plugin name - steal from version if it was too greedy
+    var pluginName;
+
+    if(resourceFields.length <= 0)
+    {
+      pluginName = version;
+      version = null;
+    }
+    else
+      pluginName = resourceFields.join('-');
+
+    // If we don't have a version, then go find the latest
+    if(!version || version.length <= 0)
+      return {
+        'code': '307',
+        'headers': {
+          'Location': '../../latest/'+user+'-'+pluginName
+        }
+      };
       
     return {
       'code': '307',
       'headers': {
-        'Location': '/'+user+'/'+resourceFields.join('-')+'-'+version+'.'+fileExt
+        'Location': '/'+user+'/'+pluginName+'-'+version+'.'+fileExt
       }
     };
   }
