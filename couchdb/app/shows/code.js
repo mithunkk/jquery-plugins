@@ -7,9 +7,13 @@ function(doc, req)
         user = req.path.pop();
 
     // Determine the file extension (for .min, etc.)
-    var fileExt = resourceFields.pop().split('.');
-    resourceFields.push(fileExt.shift());
-    fileExt = fileExt.join('.');
+    var fileExtFields = resourceFields.pop().split('.');
+
+    var fileExt = fileExtFields.pop(); //.js
+    if(fileExtFields[fileExtFields.length - 1] == "min")
+      fileExt = fileExtFields.pop() + fileExt;
+
+    resourceFields.push(fileExtFields.join('.'));
 
     /* 
      * Reverse iter over the fields, figuring out the version. Version numbers
