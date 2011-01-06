@@ -33,13 +33,11 @@
             "twitter": "cowboy" 
         } 
     ],
-    "versions": [
-        {
-            "version": "1.0.1",
+    "versions": {
+        "1.0.1": {
             "docs": "/docs/1.0.1.html" 
         },
-        {
-            "version": "1.0.0",
+        "1.0.0": {
             "keywords": [
                 "ui",
                 "official" 

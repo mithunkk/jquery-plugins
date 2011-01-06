@@ -41,15 +41,6 @@ function(doc, req)
     else
       pluginName = resourceFields.join('-');
 
-    // If we don't have a version, then go find the latest
-    if(!version || version.length <= 0)
-      return {
-        'code': '307',
-        'headers': {
-          'Location': '../../latest/'+user+'-'+pluginName
-        }
-      };
-      
     return {
       'code': '307',
       'headers': {
