@@ -10,7 +10,7 @@ function(doc, req)
     return { 
       'code': '307', 
       'headers': {
-        'Location': '/'+user+'/'+plugin+'-'+doc.defaultVersion+'.js'
+        'Location': '/'+user+'-'+plugin+'/'+doc.defaultVersion+'.js'
       } 
     };
   }
