@@ -10,16 +10,14 @@
   <script type="text/javascript"> 
     jQuery(function($){
       
-      var pluginSummary = '<li><a href="#/">${name}</a></li>';
+      var pluginSummary = '<li class="${pluginType}"><h2><a href="#/${owner}/${name}">${name}</a></h2><p>${description}</p>{{each authors}}<em><a href="${url}">${name}</a></em>{{if $index < authors.length-1 }}, {{/if}}{{/each}}</li>';
           
       $.getJSON('http://plugins-v3.jquery.com:5984/plugins/_all_docs?callback=?&include_docs=true', function( responses ){
 
         _.each( responses.rows, function( response ){
-          if ( response.id != '_design/app' ){
-
+          if ( response.doc.name ){
             $('ul').append( pluginSummary, response.doc, null )
-
-            console.log(response)
+            console.log(response.doc)
           }
         })
 

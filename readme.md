@@ -7,9 +7,9 @@
 * <http://plugins-v3.jquery.com/cowboy/bbq-1.2.1.min.js>
 
 ##Every plugin has a pluginType field with one of these values:
-* "PUBLIC",
-* "JQUERY"
-* "JQUERY-UI"
+* "public",
+* "jquery"
+* "jquery-ui"
 
 ###To get all the plugins of a certain type, you go here:
 <http://plugins-v3.jquery.com:5984/plugins/_design/app/_view/byType>

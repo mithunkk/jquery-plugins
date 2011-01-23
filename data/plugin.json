@@ -7,6 +7,7 @@
         "gpl",
         "http://my-license-that-is-evil.com/license.txt" 
     ],
+    "description": "An amazing plugin for conducting important saves and slaps around the super powered gotham!",
     "copyright": "2010 Ben Alman",
     "docs": "/docs/",
     "clone": "http://github.com/appendto/jquery-mockjax.git",
