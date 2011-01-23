@@ -10,7 +10,7 @@
   <script type="text/javascript"> 
     jQuery(function($){
       
-      var pluginSummary = '<li class="${pluginType}"><h2><a href="#/${owner}/${name}">${name}</a></h2><p>${description}</p>{{each authors}}<em><a href="${url}">${name}</a></em>{{if $index < authors.length-1 }}, {{/if}}{{/each}}</li>';
+      var pluginSummary = '<li class="${pluginType}"><h2><a href="#/${owner}/${name}">${name}</a></h2><p>${description}</p>{{each maintainers}}<em><a href="${url}">${name}</a></em>{{if $index < maintainers.length-1 }}, {{/if}}{{/each}}</li>';
           
       $.getJSON('http://plugins-v3.jquery.com:5984/plugins/_all_docs?callback=?&include_docs=true', function( responses ){
 

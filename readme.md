@@ -1,4 +1,4 @@
-# Couch System Design Documentation
+# jQuery Plugins Site CouchDB System Design Documentation
 
 ## Example URLs to test the source paths:
 
