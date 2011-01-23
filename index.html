@@ -1,0 +1,21 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>jQuery Plugin Site Round 3</title> 
+  <script src="http://code.jquery.com/jquery.js"></script> 
+  <script type="text/javascript"> 
+  jQuery(function($){
+    $.getJSON('http://plugins-v3.jquery.com:5984/plugins/_all_docs?callback=?', function( response ){
+      console.log(response);
+    })
+  })( jQuery );
+
+  </script>    
+  <style> 
+  </style> 
+</head> 
+<body>  
+  <h1>All Plugins</h1> 
+</body> 
+</html>
