@@ -27,7 +27,7 @@
         "documentation": 0,
         "supported": 0 
     },
-    "authors": [
+    "maintainers": [
         {
             "name": "Ben Alman",
             "email": "ben@alman.com",
