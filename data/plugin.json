@@ -14,6 +14,7 @@
     "repository": "http://github.com/appendto/jquery-mockjax",
     "screenshot": "http://plugins.com/screenshot.png",
     "issues": "http://github.com/appendto/jquery-mockjax/issues",
+    "owner": "cowboy",
     "dependencies" : {
         "jquery/jquery" : [
             "1.4.2",
