@@ -6,30 +6,32 @@
   <script src="js/jquery.js"></script> 
   <script src="js/underscore.js"></script> 
   <script src="js/jquery.tmpl.js"></script> 
+  <script src="js/jquery.tmplPlus.js"></script> 
   <script type="text/javascript"> 
-  jQuery(function($){
-    $.getJSON('http://plugins-v3.jquery.com:5984/plugins/_all_docs?callback=?&include_docs=true', function( responses ){
+    jQuery(function($){
+      
+      var pluginSummary = '<li><a href="#/">${name}</a></li>';
+          
+      $.getJSON('http://plugins-v3.jquery.com:5984/plugins/_all_docs?callback=?&include_docs=true', function( responses ){
 
-      _.each( responses.rows, function( response ){
-        if ( response.id != '_design/app' ){
-          $( '<li>', {
-            html: response.id
-          })
-          .appendTo('ul')
-          console.log(response)
-        }
+        _.each( responses.rows, function( response ){
+          if ( response.id != '_design/app' ){
+
+            $('ul').append( pluginSummary, response.doc, null )
+
+            console.log(response)
+          }
+        })
 
       })
-    })
-  })( jQuery );
-
-  </script>    
-  <style> 
-  </style> 
+    });
+  </script>
 </head> 
 <body>  
   <h1>All Plugins</h1>
   <ul>
+    
   </ul>
-</body> 
+
+</body>
 </html>
