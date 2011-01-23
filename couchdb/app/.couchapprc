@@ -1,0 +1,7 @@
+{
+  "env": {
+    "prod": {
+      "db": "http://plugins-v3.jquery.com:5984/plugins"
+    }
+  }
+}
