@@ -1,0 +1,131 @@
+server {
+	listen   80 default;
+	server_name  localhost;
+
+	access_log  /var/log/nginx/localhost.access.log;
+
+	#location / {
+	#	rewrite /couchdb/(.*) /$1 break;
+	#	proxy_pass http://plugins-v3.jquery.com:5984;
+	#	proxy_redirect /couchdb /;
+	#	proxy_set_header Host $host;
+	#	proxy_set_header X-Real-IP $remote_addr;
+	#	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	#}
+
+	location /assets {
+		alias /var/www/jquery-v3/assets/;
+
+		gzip on; 
+		gzip_http_version 1.0;
+		gzip_comp_level 2;
+		gzip_proxied any;
+		gzip_min_length  1100;
+		gzip_buffers 16 8k; 
+		gzip_types text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;        
+		# Some version of IE 6 don't handle compression well on some mime-types, so just disable for them
+		gzip_disable "MSIE [1-6].(?!.*SV1)";
+
+		# Set a vary header so downstream proxies don't send cached gzipped content to IE6
+		gzip_vary on;
+	}
+
+	location / {
+                root   /home/sam/jquery-plugins/webRoot;
+		index  index.html index.php;
+
+		# FCGI PHP
+		location ~ .php$ {
+			fastcgi_pass   127.0.0.1:9000;
+			fastcgi_index  index.php;
+
+			fastcgi_param  SCRIPT_FILENAME  /var/www/jquery-v3$fastcgi_script_name;
+			fastcgi_param  QUERY_STRING     $query_string;
+			fastcgi_param  REQUEST_METHOD   $request_method;
+			fastcgi_param  CONTENT_TYPE     $content_type;
+			fastcgi_param  CONTENT_LENGTH   $content_length;
+		}
+
+                # Most verbose format: /user/plugin-version[.min].js
+                location ~ ^/(.*)/(.*)-(.*).js$ {
+                        proxy_pass http://205.186.144.58:5984/plugins/$1-$2/$3.js;
+                        proxy_set_header X-Real-IP $remote_addr;
+                }
+
+                # Least verbose format: /user/plugin.js
+
+                # Least verbose version (gets latest, un-min): user/plugin.js
+		location ~ ^/(.*)/(.*).js$ {
+			proxy_pass http://205.186.144.58:5984/plugins/_design/app/_show/latest/$1-$2;
+			proxy_set_header X-Real-IP $remote_addr;
+		}
+	}
+
+	#error_page  404  /404.html;
+
+	# redirect server error pages to the static page /50x.html
+	#
+	#error_page   500 502 503 504  /50x.html;
+	#location = /50x.html {
+	#	root   /var/www/nginx-default;
+	#}
+
+	# proxy the PHP scripts to Apache listening on 127.0.0.1:80
+	#
+	#location ~ \.php$ {
+		#proxy_pass   http://127.0.0.1;
+	#}
+
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+	#
+	#location ~ \.php$ {
+		#fastcgi_pass   127.0.0.1:9000;
+		#fastcgi_index  index.php;
+		#fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+		#includefastcgi_params;
+	#}
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	#location ~ /\.ht {
+		#deny  all;
+	#}
+}
+
+
+# another virtual host using mix of IP-, name-, and port-based configuration
+#
+#server {
+#listen   8000;
+#listen   somename:8080;
+#server_name  somename  alias  another.alias;
+
+#location / {
+#root   html;
+#index  index.html index.htm;
+#}
+#}
+
+
+# HTTPS server
+#
+#server {
+#listen   443;
+#server_name  localhost;
+
+#ssl  on;
+#ssl_certificate  cert.pem;
+#ssl_certificate_key  cert.key;
+
+#ssl_session_timeout  5m;
+
+#ssl_protocols  SSLv2 SSLv3 TLSv1;
+#ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+#ssl_prefer_server_ciphers   on;
+
+#location / {
+#root   html;
+#index  index.html index.htm;
+#}
+#}
