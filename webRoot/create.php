@@ -79,7 +79,7 @@ if($_POST['doCreate'])
   <head>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
+    $(function() {
       var getTagsButton = $('#getTags');
 
       $(getTagsButton).click(function() {
