@@ -83,8 +83,8 @@ if($_POST['doCreate'])
       var getTagsButton = $('#getTags');
 
       $(getTagsButton).click(function() {
-        var user = $(getTagsButton).parent().children('input[name=username]').val();
-        var repo = $(getTagsButton).parent().children('input[name=repo]').val();
+        var user = $(getTagsButton).parent().children('input[name=username]').val(),
+            repo = $(getTagsButton).parent().children('input[name=repo]').val();
 
         $.ajax({
           url: 'http://github.com/api/v2/json/repos/show/'+user+'/'+repo+'/tags',
@@ -103,8 +103,8 @@ if($_POST['doCreate'])
   <body>
     <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
       <input type="hidden" name="doCreate" value="1"/>
-      User <input type="text" name="username" value="sbisbee"/><br/>
-      Repo <input type="text" name="repo" value="sag"/><br/>
+      User <input type="text" name="username" value="boazsender"/><br/>
+      Repo <input type="text" name="repo" value="jQuery-Twitter-Plugin"/><br/>
 
       <a href="#" id="getTags">Get Tags</a>
       <ul id="tags"></ul>
