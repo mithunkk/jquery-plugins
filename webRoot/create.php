@@ -8,6 +8,8 @@ if(sizeof($_POST) > 0)
 
   if($gitHub->login())
   {
+    $pluginDAO = PluginDAO::getInstance($gitHub);
+    $pluginDAO->addVersions($_POST['username'], $_POST['repo'], $gitHub->getRepoTags($_POST['hash']));
   }
 
   die;
