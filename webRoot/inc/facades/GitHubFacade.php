@@ -58,17 +58,20 @@ class GitHubFacade
     }
   }
 
-  public function getUserInfo()
+  public function login()
   {
     try
     {
       $this->github->authenticate($this->user, $this->pass, phpGitHubApi::AUTH_HTTP_PASSWORD);
 
-      $userInfo = $github->getUserApi()->show($this->user);
+      $userInfo = $this->github->getUserApi()->show($this->user);
 
       $this->github->deauthenticate();
 
-      return $userInfo;
+      if(!isset($userInfo['private_gist_count']))
+        throw ErrorFactory::makeError(INVALID_CREDENTIALS);
+
+      return true;
     }
     catch(phpGitHubApiRequestException $e)
     {

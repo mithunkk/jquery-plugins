@@ -6,7 +6,10 @@ if(sizeof($_POST) > 0)
 
   $gitHub = new GitHubFacade($_POST['username'], $_POST['password'], $_POST['repo']);
 
-  var_dump($gitHub->getRepoInfo());
+  if($gitHub->login())
+  {
+  }
+
   die;
 }
 ?>
