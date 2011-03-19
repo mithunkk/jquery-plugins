@@ -40,22 +40,43 @@ class GitHubFacade
     return $repo;
   }
 
-  public function getRepoTags()
+  public function getRepoTags($filterHashes)
   {
+    if(!is_array($filterHashes) || sizeof($filterHashes) < 0)
+      throw ErrorFactory::makeError(ERROR_NO_TAGS);
+
     //Doesn't belong in the try/catch, because it does its own
     $repoInfo = self::getRepoInfo();
     
     if(!PluginFormValidator::mayUseRepo($repoInfo))
       throw ErrorFactory::makeError(ERROR_FORKED_REPO);
 
+    $validTags = array(); //these tags have been validated against repo's info
+
     try
     {
-      return $this->github->getRepoApi()->getRepoTags($this->user, $this->repo);
+      $tags = $this->github->getRepoApi()->getRepoTags($this->user, $this->repo);
+
+      foreach($filterHashes as $tagHash)
+      {
+        if(($tagName = array_search($tagHash, $tags)) !== false)
+        {
+          $tag = new StdClass();
+          $tag->name = $tagName;
+          $tag->hash = $tagHash;
+
+          $validTags[] = $tag;
+        }
+        else
+          throw ErrorFactory::makeError(ERROR_UNKNOWN_TAG);
+      }
     }
     catch(phpGitHubApiRequestException $e)
     {
       throw ErrorFactory::makeFromGitHubError($e);
     }
+
+    return $validTags;
   }
 
   public function login()

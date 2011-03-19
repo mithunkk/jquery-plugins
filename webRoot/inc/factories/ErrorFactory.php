@@ -38,6 +38,10 @@ class ErrorFactory
         $msg = 'You cannot add a forked repo.';
         break;
 
+      case ERROR_UNKNOWN_TAG:
+        $msg = 'One or more of the tags you supplied do not exist in that repository.';
+        break;
+
       default: 
         $msg = 'An unknown error occured.';
         break;
