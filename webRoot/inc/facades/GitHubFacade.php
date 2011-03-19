@@ -61,7 +61,7 @@ class GitHubFacade
       {
         if(($tagName = array_search($tagHash, $tags)) !== false)
         {
-          $tag = new StdClass();
+          $tag = new TagVO();
           $tag->name = $tagName;
           $tag->hash = $tagHash;
 
