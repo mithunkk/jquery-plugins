@@ -66,6 +66,10 @@ class ErrorFactory
         $msg = 'You need tags in your repository so that we can define versions.';
         break;
 
+      case ERROR_PLUGIN_ALREADY_EXISTS:
+        $msg = 'That plugin already exists.';
+        break;
+
       default: 
         $msg = 'An unknown error occured.';
         break;
