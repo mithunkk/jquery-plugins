@@ -4,12 +4,14 @@ class ErrorFactory
   public static function makeFromGitHubError($e)
   {
     if(!$e || !($e instanceof Exception))
+      //TODO log this
       $msg = 'Unknown GitHub error.';
     else
     {
       switch($e->getCode())
       {
         case 401:
+          //TODO log this
           $msg = 'We are currently processing too many GitHub requests. Please try again in a few minutes.';
           break;
 
@@ -40,6 +42,20 @@ class ErrorFactory
 
       case ERROR_UNKNOWN_TAG:
         $msg = 'One or more of the tags you supplied do not exist in that repository.';
+        break;
+
+      case ERROR_NO_PLUGIN:
+        $msg = 'That plugin does not exist.';
+        break;
+
+      case ERROR_MISC_SYSTEM:
+        //TODO log this
+        $msg = 'There was an issue processing your request. Please try again or try again later.';
+        break;
+
+      case ERROR_DATABASE:
+        //TODO log this - probably means the db is down or there's a bug in our code
+        $msg = 'The database is current not available. Please try again in a few minutes.';
         break;
 
       default: 
