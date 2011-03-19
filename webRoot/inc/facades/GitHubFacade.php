@@ -1,5 +1,5 @@
 <?php
-class GitHubDAO
+class GitHubFacade
 {
   private static $instance;
 
