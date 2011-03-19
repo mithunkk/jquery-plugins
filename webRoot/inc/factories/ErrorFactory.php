@@ -58,12 +58,16 @@ class ErrorFactory
         $msg = 'The database is current not available. Please try again in a few minutes.';
         break;
 
+      case ERROR_MISSING_PACKAGE_FILE:
+        $msg = 'You need a file named "package.json" in the root of your repository at the HEAD commit.';
+        break;
+
       default: 
         $msg = 'An unknown error occured.';
         break;
     }
 
-    return new Exception($e);
+    return new Exception($msg);
   }
 }
 ?>
