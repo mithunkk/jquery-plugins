@@ -62,6 +62,10 @@ class ErrorFactory
         $msg = 'You need a file named "package.json" in the root of your repository at the HEAD commit.';
         break;
 
+      case ERROR_NO_TAGS:
+        $msg = 'You need tags in your repository so that we can define versions.';
+        break;
+
       default: 
         $msg = 'An unknown error occured.';
         break;
