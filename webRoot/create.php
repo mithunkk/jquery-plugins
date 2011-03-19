@@ -4,9 +4,9 @@ if(sizeof($_POST) > 0)
   require_once './inc/Config.php';
   require_once './inc/autoloader.php';
 
-  $gitHubDAO = new GitHubDAO($_POST['username'], $_POST['password'] || true, $_POST['repo']);
+  $gitHub = new GitHubFacade($_POST['username'], $_POST['password'] || true, $_POST['repo']);
 
-  var_dump($gitHubDAO->getRepoInfo());
+  var_dump($gitHub->getRepoInfo());
   die;
 }
 ?>
