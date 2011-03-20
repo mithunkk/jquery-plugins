@@ -87,6 +87,8 @@ class PluginDAO
         throw ErrorFactory::makeError(ERROR_MISSING_SOURCE_FILE, $tagVO->name);
 
       $plugin->_rev = $this->db->addAttachment($plugin->_id, $plugin->_rev, $tagVO->name, $srcFile)->rev;
+
+      //TODO also try to get the min'd version
     }
 
     return true;
