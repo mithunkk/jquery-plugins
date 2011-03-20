@@ -46,16 +46,16 @@ server {
 			fastcgi_param  CONTENT_LENGTH   $content_length;
 		}
 
-                # Most verbose format: /user/plugin-version[.min].js
-                location ~ ^/(.*)/(.*)-(.*).js$ {
+                # Most verbose format: /user/jQuery.plugin-version[.min].js
+                location ~ ^/(.*)/jQuery\.(.*)-(.*).js$ {
                         proxy_pass http://205.186.144.58:5984/plugins/$1-$2/$3.js;
                         proxy_set_header X-Real-IP $remote_addr;
                 }
 
                 # Least verbose format: /user/plugin.js
 
-                # Least verbose version (gets latest, un-min): user/plugin.js
-		location ~ ^/(.*)/(.*).js$ {
+                # Least verbose version (gets latest, un-min): user/jQuery.plugin.js
+		location ~ ^/(.*)/jQuery\.(.*).js$ {
 			proxy_pass http://205.186.144.58:5984/plugins/_design/app/_show/latest/$1-$2;
 			proxy_set_header X-Real-IP $remote_addr;
 		}
