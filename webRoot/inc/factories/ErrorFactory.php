@@ -28,7 +28,7 @@ class ErrorFactory
     return new Exception($e);
   }
 
-  public static function makeError($code)
+  public static function makeError($code, $extra = null)
   {
     switch($code)
     {
@@ -68,6 +68,10 @@ class ErrorFactory
 
       case ERROR_PLUGIN_ALREADY_EXISTS:
         $msg = 'That plugin already exists.';
+        break;
+
+      case ERROR_MISSING_SOURCE_FILE:
+        $msg = 'Could not find a source file for the "'.$extra.'" tag.';
         break;
 
       default: 

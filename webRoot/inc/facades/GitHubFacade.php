@@ -90,7 +90,7 @@ class GitHubFacade
       $this->github->deauthenticate();
 
       if(!isset($userInfo['private_gist_count']))
-        throw ErrorFactory::makeError(INVALID_CREDENTIALS);
+        throw ErrorFactory::makeError(ERROR_INVALID_CREDENTIALS);
 
       return true;
     }
@@ -100,20 +100,41 @@ class GitHubFacade
     }
   }
 
-  public function getPluginFile($tag)
+  public function getPackageFile()
   {
-    if(is_string($tags))
-      $tags = array($tags);
-    elseif(!is_array($tags) || sizeof($tags) <= 0)
-      throw new Exception('You did not select any tags.');
+    try
+    {
+      $fileMeta = array_shift($this->github->getCommitApi()->getFileCommits($this->user, $this->repo, 'master', 'package.json'));
+
+      $file = $this->github->getObjectApi()->showBlob($this->user, $this->repo, $fileMeta['id'], 'package.json');
+
+      try
+      {
+        return json_decode($file['data']);
+      }
+      catch(Exception $e)
+      {
+        //invalid JSON
+        throw ErrorFactory::makeError(ERROR_INVALID_PACKAGE_FILE);
+      }
+    }
+    catch(Exception $e)
+    {
+      throw ErrorFactory::makeError(ERROR_MISSING_PACKAGE_FILE);
+    }
   }
 
-  public function getVersionFiles($tags = array())
+  public function getSourceFileAt($hash)
   {
-    if(is_string($tags))
-      $tags = array($tags);
-    elseif(!is_array($tags) || sizeof($tags) <= 0)
-      throw new Exception('You did not select any tags.');
+    try
+    {
+      $file = $this->github->getObjectApi()->showBlob($this->user, $this->repo, $hash, "jQuery.{$this->repo}.js");
+      return $file['data'];
+    }
+    catch(Exception $e)
+    {
+      return null;
+    }
   }
 }
 ?>
