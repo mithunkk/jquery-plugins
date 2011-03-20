@@ -1,6 +1,6 @@
 function(doc, req)
 { 
-  if(doc.docType == 'plugin' && doc.defaultVersion)
+  if(doc.pluginType && doc.defaultVersion)
   {
     var fields = doc._id.split('-');
 
@@ -10,7 +10,7 @@ function(doc, req)
     return { 
       'code': '307', 
       'headers': {
-        'Location': 'http://plugins-v3.jquery.com/'+user+'/'+plugin+'-'+doc.defaultVersion+'.js'
+        'Location': 'http://plugins-v3.jquery.com/'+user+'/jQuery.'+plugin+'-'+doc.defaultVersion+'.js'
       } 
     };
   }

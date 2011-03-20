@@ -48,7 +48,7 @@ server {
 
                 # Most verbose format: /user/plugin-version[.min].js
                 location ~ ^/(.*)/(.*)-(.*).js$ {
-                        proxy_pass http://205.186.144.58:5984/plugins/$1-$2/$3.js;
+                        proxy_pass http://205.186.144.58:5984/plugins/$1-$2/jQuery.$3.js;
                         proxy_set_header X-Real-IP $remote_addr;
                 }
 

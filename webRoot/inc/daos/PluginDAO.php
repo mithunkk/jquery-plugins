@@ -86,7 +86,7 @@ class PluginDAO
       if(!$srcFile)
         throw ErrorFactory::makeError(ERROR_MISSING_SOURCE_FILE, $tagVO->name);
 
-      $plugin->_rev = $this->db->addAttachment($plugin->_id, $plugin->_rev, "{$tagVO->name}.js", $srcFile)->rev;
+      $plugin->_rev = $this->db->addAttachment($plugin->_id, $plugin->_rev, "jQuery.{$tagVO->name}.js", $srcFile)->rev;
 
       //TODO also try to get the min'd version
     }

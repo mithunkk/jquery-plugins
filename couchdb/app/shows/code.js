@@ -44,7 +44,7 @@ function(doc, req)
     return {
       'code': '307',
       'headers': {
-        'Location': '/'+user+'/'+pluginName+'-'+version+'.'+fileExt
+        'Location': '/'+user+'/jQuery.'+pluginName+'-'+version+'.'+fileExt
       }
     };
   }
