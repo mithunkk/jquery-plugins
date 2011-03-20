@@ -1,18 +1,26 @@
 <?php
-if(sizeof($_POST) > 0)
+try
 {
-  require_once './inc/Config.php';
-  require_once './inc/autoloader.php';
-
-  $gitHub = new GitHubFacade($_POST['username'], $_POST['password'], $_POST['repo']);
-
-  if($gitHub->login())
+  if(sizeof($_POST) > 0)
   {
-    $pluginDAO = PluginDAO::getInstance($gitHub);
-    $pluginDAO->addVersions($_POST['username'], $_POST['repo'], $gitHub->getRepoTags($_POST['hash']));
-  }
+    require_once './inc/Config.php';
+    require_once './inc/autoloader.php';
 
-  die;
+    $gitHub = new GitHubFacade($_POST['username'], $_POST['password'], $_POST['repo']);
+
+    if($gitHub->login())
+    {
+      $pluginDAO = PluginDAO::getInstance($gitHub);
+
+      $pluginDAO->addVersions($_POST['username'], $_POST['repo'], $gitHub->getRepoTags($_POST['hash']));
+
+      header("Location: /{$_POST['username']}/{$_POST['repo']}");
+    }
+  }
+}
+catch(Exception $e)
+{
+  define('ERROR_MESSAGE', $e->getMessage());
 }
 ?>
 
