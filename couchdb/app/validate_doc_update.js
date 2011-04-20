@@ -60,6 +60,11 @@ function (newDoc, oldDoc, userCtx) {
   if(oldDoc && doc.name != oldDoc.name)
     forbidden('You cannot change the plugin name.');
 
+  requireString(doc.owner, '"owner" must be the owner of the plugin and GitHub repository.');
+
+  if(oldDoc && doc.owner != oldDoc.owner)
+    forbidden('You cannot change the plugin owner. You probably want to fork the project under a different name.');
+
   // Required Items that May Change Between Revisions
 
   requireString(doc.label, '"label" must be a string, providing a decorative version of your plugin name.');
