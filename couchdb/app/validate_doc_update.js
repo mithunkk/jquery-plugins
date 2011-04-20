@@ -109,4 +109,25 @@ function (newDoc, oldDoc, userCtx) {
         requireVersion(doc.dependencies[i][j], dependenciesError);
     }
   }
+
+  if(doc.maintainers)
+  {
+    var maintainersError = '"maintainers" must be an array of objects.';
+
+    requireArray(doc.maintainers, maintainersError);
+
+    for(var i in doc.maintainers)
+    {
+      requireObject(doc.maintainers[i], maintainersError);
+      requireString(doc.maintainers[i].name, 'Every maintainer must have a name property that is a string.');
+
+      for(var j in doc.maintainers[i])
+      {
+        if(j != 'name' && j != 'email' && j != 'twitter')
+          doc.maintainers[i][j] = null;
+        else
+          requireString(doc.maintainers[i][j], 'Each maintainer can have a name, email, and twitter, all of which must be strings.');
+      }
+    }
+  }
 }
