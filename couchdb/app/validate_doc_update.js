@@ -32,6 +32,15 @@ function (newDoc, oldDoc, userCtx) {
     if(obj.constructor != Object) forbidden(message);
   };
 
+  function requireVersion(str, message) {
+    requireString(str, message);
+
+    var ver = str.split('.');
+
+    if(ver.length != 3 || isNaN(ver[0]) || isNaN(ver[1]) || isNaN(ver[2]))
+      forbidden(message);
+  };
+
   // Default Values
 
   if(!doc.clone)
@@ -85,6 +94,16 @@ function (newDoc, oldDoc, userCtx) {
 
   if(doc.dependencies)
   {
+    var dependenciesError = '"dependencies" should be an object of project names to arrays of version numbers.';
 
+    requireObject(doc.dependencies, dependenciesError);
+
+    for(var i in doc.dependencies)
+    {
+      requireArray(doc.dependencies[i], dependenciesError);
+
+      for(var j in doc.dependencies[i])
+        requireVersion(doc.dependencies[i][j], dependenciesError);
+    }
   }
 }
