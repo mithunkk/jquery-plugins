@@ -45,9 +45,13 @@ function (newDoc, oldDoc, userCtx) {
 
   if(!doc.clone)
     doc.clone = 'http://github.com/'+doc.owner+'/'+doc.name+'.git';
+  else
+    requireString(doc.clone, '"clone" should be a URL to your git file on the Internet.');
 
   if(!doc.repository)
     doc.repository = 'http://github.com/'+doc.owner+'/'+doc.name;
+  else
+    requireString(doc.repository, '"repository" should be a URL to your source code control\'s interface (ex., GitHub project page).');
 
   // Required Items that Cannot Change Between Revisions
 
@@ -79,12 +83,6 @@ function (newDoc, oldDoc, userCtx) {
 
   if(doc.description)
     requireString(doc.description, '"description" needs to be text describing your plugin.');
-
-  if(doc.clone)
-    requireString(doc.clone, '"clone" should be a URL to your git file on the Internet.');
-
-  if(doc.repository)
-    requireString(doc.repository, '"repository" should be a URL to your source code control\'s interface (ex., GitHub project page).');
 
   if(doc.screenshot)
     requireString(doc.screenshot, '"screenshot" should be a URL to an image for your plugin.');
