@@ -38,7 +38,7 @@ changes to the version.
 Version must be parseable by
 [node-semver](https://github.com/isaacs/node-semver).
 
-Here's how npm's semver implementation (which the jQuery Plugins Site uses)
+Here's how the node-semver implementation (which the jQuery Plugins Site uses)
 deviates from what's on semver.org:
 
 * Versions can start with "v"
