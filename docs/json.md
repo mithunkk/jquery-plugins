@@ -1,5 +1,5 @@
-Specification for the jQuery Plugins Site package.json
-======================================================
+Specification of the jQuery Plugins Site package.json
+=====================================================
 
 # DRAFT (a lot/most borrowed from npm's. Thanks isaacs)
 
@@ -23,7 +23,7 @@ The name is what your thing is called. Some tips:
   you're registering it on the jQuery Plugins Site.
 * The name ends up being part of a URL. Any name with non-url-safe characters will
   be rejected. Also, it can't start with a dot or an underscore.
-* The name should short, but also reasonably descriptive.
+* The name should be short, but also reasonably descriptive.
 * You may want to check the jQuery Plugins Site to see if there's something by that
   name already, before you get too attached to it. http://plugins.jquery.com/
 
