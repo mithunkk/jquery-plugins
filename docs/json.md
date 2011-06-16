@@ -1,41 +1,19 @@
-npm-json(1) -- Specifics of npm's package.json handling
-=======================================================
+Specification of jQuery Plugins Site package.json
+===============================================================================
+
+# DRAFT
 
 ## DESCRIPTION
 
 This document is all you need to know about what's required in your package.json
-file.  It must be actual JSON, not just a JavaScript object literal.
-
-A lot of the behavior described in this document is affected by the config
-settings described in `npm help config`.
-
-## DEFAULT VALUES
-
-npm will default some values based on package contents.
-
-* `"scripts": {"start": "node server.js"}`
-
-  If there is a `server.js` file in the root of your package, then npm
-  will default the `start` command to `node server.js`.
-
-* `"scripts":{"preinstall": "node-waf clean || true; node-waf configure build"}`
-
-  If there is a `wscript` file in the root of your package, npm will
-  default the `preinstall` command to compile using node-waf.
-
-* `"contributors": [...]`
-
-  If there is an `AUTHORS` file in the root of your package, npm will
-  treat each line as a `Name <email> (url)` format, where email and url
-  are optional.  Lines which start with a `#` or are blank, will be
-  ignored.
+file. It must be actual JSON, not just a JavaScript object literal.
 
 ## name
 
 The *most* important things in your package.json are the name and version fields.
 Those are actually required, and your package won't install without
-them.  The name and version together form an identifier that is assumed
-to be completely unique.  Changes to the package should come along with
+them. The name and version together form an identifier that is assumed
+to be completely unique. Changes to the package should come along with
 changes to the version.
 
 The name is what your thing is called.  Some tips:
@@ -172,47 +150,6 @@ would be the same as this:
 
     { "bin" : { "program" : "./path/to/program" } }
 
-## man
-
-Specify either a single file or an array of filenames to put in place for the
-`man` program to find.
-
-If only a single file is provided, then it's installed such that it is the
-result from `man <pkgname>`, regardless of its actual filename.  For example:
-
-    { "name" : "foo"
-    , "version" : "1.2.3"
-    , "description" : "A packaged foo fooer for fooing foos"
-    , "main" : "foo.js"
-    , "man" : "./man/doc.1"
-    }
-
-would link the `./man/doc.1` file in such that it is the target for `man foo`
-
-If the filename doesn't start with the package name, then it's prefixed.
-So, this:
-
-    { "name" : "foo"
-    , "version" : "1.2.3"
-    , "description" : "A packaged foo fooer for fooing foos"
-    , "main" : "foo.js"
-    , "man" : [ "./man/foo.1", "./man/bar.1" ]
-    }
-
-will create files to do `man foo` and `man foo-bar`.
-
-Man files must end with a number, and optionally a `.gz` suffix if they are
-compressed.  The number dictates which man section the file is installed into.
-
-    { "name" : "foo"
-    , "version" : "1.2.3"
-    , "description" : "A packaged foo fooer for fooing foos"
-    , "main" : "foo.js"
-    , "man" : [ "./man/foo.1", "./man/foo.2" ]
-    }
-
-will create entries for `man foo` and `man 2 foo`
-
 ## directories
 
 The CommonJS [Packages](http://wiki.commonjs.org/wiki/Packages/1.0) spec details a
@@ -233,11 +170,6 @@ If you specify a "bin" directory, then all the files in that folder will
 be used as the "bin" hash.
 
 If you have a "bin" hash already, then this has no effect.
-
-### directories.man
-
-A folder that is full of man pages.  Sugar to generate a "man" array by
-walking the folder.
 
 ### directories.doc
 
@@ -270,38 +202,11 @@ The URL should be a publicly available (perhaps read-only) url that can be hande
 directly to a VCS program without any modification.  It should not be a url to an
 html project page that you put in your browser.  It's for computers.
 
-## scripts
-
-The "scripts" member is an object hash of script commands that are run
-at various times in the lifecycle of your package.  The key is the lifecycle
-event, and the value is the command to run at that point.
-
-See `npm help scripts` to find out more about writing package scripts.
-
-## config
-
-A "config" hash can be used to set configuration
-parameters used in package scripts that persist across upgrades.  For
-instance, if a package had the following:
-
-    { "name" : "foo"
-    , "config" : { "port" : "8080" } }
-
-and then had a "start" command that then referenced the
-`npm_package_config_port` environment variable, then the user could
-override that by doing `npm config set foo:port 8001`.
-
-See `npm help config` and `npm help scripts` for more on package
-configs.
-
 ## dependencies
 
 Dependencies are specified with a simple hash of package name to version
 range. The version range is EITHER a string which has one or more
 space-separated descriptors, OR a range like "fromVersion - toVersion"
-
-**Please do not put test harnesses in your `dependencies` hash.**  See
-`devDependencies`, below.
 
 Version range descriptors may be any of the following styles, where "version"
 is a semver compatible version identifier.
@@ -374,20 +279,6 @@ of a version range.
 This tarball will be downloaded and installed locally to your package at
 install time.
 
-## devDependencies
-
-If someone is planning on downloading and using your module in their
-program, then they probably don't want or need to download and build
-the external test or documentation framework that you use.
-
-In this case, it's best to list these additional items in a
-`devDependencies` hash.
-
-These things will be installed whenever the `--dev` configuration flag
-is set.  This flag is set automatically when doing `npm link`, and can
-be managed like any other npm configuration param.  See `npm help
-config` for more on the topic.
-
 ## bundledDependencies
 
 Array of package names that will be bundled when publishing the package.
@@ -433,16 +324,3 @@ If you would like to ensure that a given package is only ever published
 to a speciic registry (for example, an internal registry),
 then use the `publishConfig` hash described below
 to override the `registry` config param at publish-time.
-
-## publishConfig
-
-This is a set of config values that will be used at publish-time.  It's
-especially handy if you want to set the tag or registry, so that you can
-ensure that a given package is not tagged with "latest" or published to
-the global public registry by default.
-
-Any config values can be overridden, but of course only "tag" and
-"registry" probably matter for the purposes of publishing.
-
-See `npm help config` to see the list of config options that can be
-overridden.
