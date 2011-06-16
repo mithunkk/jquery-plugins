@@ -11,7 +11,7 @@ file. It must be actual JSON, not just a JavaScript object literal.
 ## name
 
 The *most* important things in your package.json are the name and version fields.
-Those are actually required, and your plugin won't install without
+Those are actually required, and your plugin won't register without
 them. The name and version together form an identifier that is assumed
 to be completely unique. Changes to the plugin should come along with
 changes to the version.
@@ -30,7 +30,7 @@ The name is what your thing is called. Some tips:
 ## version
 
 The *most* important things in your package.json are the name and version fields.
-Those are actually required, and your plugin won't install without
+Those are actually required, and your plugin won't register without
 them. The name and version together form an identifier that is assumed
 to be completely unique. Changes to the plugin should come along with
 changes to the version.
