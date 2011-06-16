@@ -1,7 +1,7 @@
-Specification of jQuery Plugins Site package.json
-===============================================================================
+Specification for the jQuery Plugins Site package.json
+======================================================
 
-# DRAFT
+# DRAFT (a lot/most borrowed from npm's. Thanks isaacs)
 
 ## DESCRIPTION
 
@@ -11,37 +11,35 @@ file. It must be actual JSON, not just a JavaScript object literal.
 ## name
 
 The *most* important things in your package.json are the name and version fields.
-Those are actually required, and your package won't install without
+Those are actually required, and your plugin won't install without
 them. The name and version together form an identifier that is assumed
-to be completely unique. Changes to the package should come along with
+to be completely unique. Changes to the plugin should come along with
 changes to the version.
 
-The name is what your thing is called.  Some tips:
+The name is what your thing is called. Some tips:
 
-* Don't put "js" or "node" in the name.  It's assumed that it's js, since you're
-  writing a package.json file, and you can specify the engine using the "engines"
-  field.  (See below.)
-* The name ends up being part of a URL, an argument on the command line, and a
-  folder name. Any name with non-url-safe characters will be rejected.
-  Also, it can't start with a dot or an underscore.
-* The name will probably be passed as an argument to require(), so it should
-  be something short, but also reasonably descriptive.
-* You may want to check the npm registry to see if there's something by that name
-  already, before you get too attached to it.  http://registry.npmjs.org/
+* Don't put "js" or "jquery" in the name. It's assumed that it's js, since you're
+  writing a package.json file, and it's assumed that it's a jQuery plugin, because
+  you're registering it on the jQuery Plugins Site.
+* The name ends up being part of a URL. Any name with non-url-safe characters will
+  be rejected. Also, it can't start with a dot or an underscore.
+* The name should short, but also reasonably descriptive.
+* You may want to check the jQuery Plugins Site to see if there's something by that
+  name already, before you get too attached to it. http://plugins.jquery.com/
 
 ## version
 
 The *most* important things in your package.json are the name and version fields.
-Those are actually required, and your package won't install without
-them.  The name and version together form an identifier that is assumed
-to be completely unique.  Changes to the package should come along with
+Those are actually required, and your plugin won't install without
+them. The name and version together form an identifier that is assumed
+to be completely unique. Changes to the plugin should come along with
 changes to the version.
 
 Version must be parseable by
-[node-semver](https://github.com/isaacs/node-semver), which is bundled
-with npm as a dependency.  (`npm install semver` to use it yourself.)
+[node-semver](https://github.com/isaacs/node-semver).
 
-Here's how npm's semver implementation deviates from what's on semver.org:
+Here's how npm's semver implementation (which the jQuery Plugins Site uses)
+deviates from what's on semver.org:
 
 * Versions can start with "v"
 * A numeric item separated from the main three-number version by a hyphen
@@ -56,27 +54,21 @@ a patch version.
 
 ## description
 
-Put a description in it.  It's a string.  This helps people discover your
-package, as it's listed in `npm search`.
+Put a description in it. It's a string. This helps people discover your
+plugin, as it's listed on the jQuery Plugins Site.
 
 ## keywords
 
-Put keywords in it.  It's an array of strings.  This helps people
-discover your package as it's listed in `npm search`.
+Put keywords in it. It's an array of strings. This helps people
+discover your plugin as it's listed on the jQuery Plugins Site.
 
 ## homepage
 
-The url to the project homepage.
-
-**NOTE**: This is *not* the same as "url".  If you put a "url" field,
-then the registry will think it's a redirection to your package that has
-been published somewhere else, and spit at you.
-
-Literally.  Spit.  I'm so not kidding.
+The url to the plugin homepage.
 
 ## people fields: author, contributors
 
-The "author" is one person.  "contributors" is an array of people.  A "person"
+The "author" is one person. "contributors" is an array of people. A "person"
 is an object with a "name" field and optionally "url" and "email", like this:
 
     { "name" : "Barney Rubble"
@@ -84,123 +76,47 @@ is an object with a "name" field and optionally "url" and "email", like this:
     , "url" : "http://barnyrubble.tumblr.com/"
     }
 
-Or you can shorten that all into a single string, and npm will parse it for you:
+Or you can shorten that all into a single string, and it will be parsed for you:
 
     "Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)
 
 Both email and url are optional either way.
 
-npm also sets a top-level "maintainers" field with your npm user info.
-
 ## files
 
-The "files" field is an array of files to include in your project.  If
+The "files" field is an array of files that make up your plugin. If
 you name a folder in the array, then it will also include the files
-inside that folder. (Unless they would be ignored by another rule.)
-
-You can also provide a ".npmignore" file in the root of your package,
-which will keep files from being included, even if they would be picked
-up by the files array.  The ".npmignore" file works just like a
-".gitignore".
+inside that folder.
 
 ## main
 
-The main field is a module ID that is the primary entry point to your program.
-That is, if your package is named `foo`, and a user installs it, and then does
-`require("foo")`, then your main module's exports object will be returned.
+The main field is a file that is your plugin.
 
-This should be a module ID relative to the root of your package folder.
+This should be a file path relative to the root of your plugin folder.
 
-For most modules, it makes the most sense to have a main script and often not
-much else.
+## minified
 
-## bin
-
-A lot of packages have one or more executable files that they'd like to
-install into the PATH. npm makes this pretty easy (in fact, it uses this
-feature to install the "npm" executable.)
-
-To use this, supply a `bin` field in your package.json which is a map of
-command name to local file name. On install, npm will link that file into
-place right next to wherever node is installed. (Presumably, this is in your
-PATH, and defaults to `/usr/local/bin`.) On activation, the versioned file
-will get linked to the main filename (just like how the main.js stuff works,
-but with an executable in the PATH.)
-
-For example, npm has this:
-
-    { "bin" : { "npm" : "./cli.js" } }
-
-So, when you install npm, it'll create a symlink from the `cli.js` script to
-`/usr/local/bin/npm-version`. Then, when you activate that version, it'll
-create a symlink from `/usr/local/bin/npm-version` to `/usr/local/bin/npm`.
-
-Notice that if the executable file is interpreted by node (i.e., specifying
-node in the shebang line), npm actually installs a shim instead of symlinking
-it, which causes expressions `require.main === module` and `module.id === "."`
-evaluate to `false` within the file. This seems unable to be resolved until
-node provides a "flexible `require()`".
-
-Shortcut: If you have a single executable, and its name is already what you
-want it to be, then you can just supply it as a string.  For example:
-
-    { "bin" : "./path/to/program" }
-
-would be the same as this:
-
-    { "bin" : { "program" : "./path/to/program" } }
-
-## directories
-
-The CommonJS [Packages](http://wiki.commonjs.org/wiki/Packages/1.0) spec details a
-few ways that you can indicate the structure of your package using a `directories`
-hash. If you look at [npm's package.json](http://registry.npmjs.org/npm/latest),
-you'll see that it has directories for doc, lib, and man.
-
-In the future, this information may be used in other creative ways.
-
-### directories.lib
-
-Tell people where the bulk of your library is.  Nothing special is done
-with the lib folder in any way, but it's useful meta info.
-
-### directories.bin
-
-If you specify a "bin" directory, then all the files in that folder will
-be used as the "bin" hash.
-
-If you have a "bin" hash already, then this has no effect.
-
-### directories.doc
-
-Put markdown files in here.  Eventually, these will be displayed nicely,
-maybe, someday.
-
-### directories.example
-
-Put example scripts in here.  Someday, it might be exposed in some clever way.
+This file is a minified copy of the main plugin file. Optional.
 
 ## repository
 
-Specify the place where your code lives. This is helpful for people who
-want to contribute.  If the git repo is on github, then the `npm docs`
-command will be able to find you.
+Specify the place where your code lives. This is required. For now it
+must be a git repository on GitHub.
 
 Do it like this:
 
     "repository" :
       { "type" : "git"
-      , "url" : "http://github.com/isaacs/npm.git"
-      }
-
-    "repository" :
-      { "type" : "svn"
-      , "url" : "http://v8.googlecode.com/svn/trunk/"
+      , "url" : "http://github.com/cowboy/jquery-bbq.git"
       }
 
 The URL should be a publicly available (perhaps read-only) url that can be handed
-directly to a VCS program without any modification.  It should not be a url to an
-html project page that you put in your browser.  It's for computers.
+directly to a VCS program without any modification. It should not be a url to an
+html project page that you put in your browser. It's for computers.
+
+## licenses
+
+TODO
 
 ## dependencies
 
@@ -268,16 +184,8 @@ The following are equivalent:
 * `"1.x" = "1.x.x"`
 * `"1" = "1.x.x"`
 
-You may not supply a comparator with a version containing an x.  Any
+You may not supply a comparator with a version containing an x. Any
 digits after the first "x" are ignored.
-
-### URLs as Dependencies
-
-Starting with npm version 0.2.14, you may specify a tarball URL in place
-of a version range.
-
-This tarball will be downloaded and installed locally to your package at
-install time.
 
 ## bundledDependencies
 
@@ -289,38 +197,18 @@ Packages/1.0 says that you can have an "engines" field with an array of engine
 names. However, it has no provision for specifying which version of the engine
 your stuff runs on.
 
-With npm, you can use either of the following styles to specify the version of
-node that your stuff works on:
+With the jQuery Plugins Site, you can use either of the following styles to
+specify the version of jQuery that your plugin works with:
 
-    { "engines" : [ "node >=0.1.27 <0.1.30" ] }
+    { "engines" : [ "jquery >=1.4.4 <1.6.1" ] }
 
 or:
 
-    { "engines" : { "node" : ">=0.1.27 <0.1.30" } }
+    { "engines" : { "jquery" : ">=1.4.4 <1.6.1" } }
 
 And, like with dependencies, if you don't specify the version (or if you
-specify "*" as the version), then any version of node will do.
+specify "*" as the version), then any version of jQuery will do.
 
-If you specify an "engines" field, then npm will require that "node" be
-somewhere on that list. If "engines" is omitted, then npm will just assume
-that it works on node.
-
-## preferGlobal
-
-If your package is primarily a command-line application that should be
-installed globally, then set this value to `true` to provide a warning
-if it is installed locally.
-
-It doesn't actually prevent users from installing it locally, but it
-does help prevent some confusion if it doesn't work as expected.
-
-## private
-
-If you set `"private": true` in your package.json, then npm will refuse
-to publish it.
-
-This is a way to prevent accidental publication of private repositories.
-If you would like to ensure that a given package is only ever published
-to a speciic registry (for example, an internal registry),
-then use the `publishConfig` hash described below
-to override the `registry` config param at publish-time.
+If you specify an "engines" field, then the jQuery Plugins Site will require
+that "jquery" be somewhere on that list. If "engines" is omitted, then the
+jQuery Plugins Site will just assume that your plugins works with jQuery.
