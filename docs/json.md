@@ -1,7 +1,7 @@
 Specification of the jQuery Plugins Site package.json
 =====================================================
 
-# DRAFT (a lot/most based on that of npm. Thanks isaacs)
+# DRAFT (heavily inspired by that of npm. Thanks isaacs)
 
 ## DESCRIPTION
 
