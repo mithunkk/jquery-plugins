@@ -82,6 +82,18 @@ Or you can shorten that all into a single string, and it will be parsed for you:
 
 Both email and url are optional either way.
 
+## licenses
+
+Array of licenses under which the plugin is provided. Each license is a hash with
+a "type" property specifying the type of license and a url property linking to the actual text. If the license is one of the official open source licenses the official license name or its abbreviation may be explicated with the "type" property. If an abbreviation is provided (in parentheses), the abbreviation must be used.
+
+    "licenses": [
+       {
+           "type": "GPLv2",
+           "url": "http://www.example.com/licenses/gpl.html",
+       }
+    ]
+
 ## files
 
 The "files" field is an array of files that make up your plugin. If
@@ -113,10 +125,6 @@ Do it like this:
 The URL should be a publicly available (perhaps read-only) url that can be handed
 directly to a VCS program without any modification. It should not be a url to an
 html project page that you put in your browser. It's for computers.
-
-## licenses
-
-TODO
 
 ## dependencies
 
