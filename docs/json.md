@@ -219,4 +219,4 @@ specify "*" as the version), then any version of jQuery will do.
 
 If you specify an "engines" field, then the jQuery Plugins Site will require
 that "jquery" be somewhere on that list. If "engines" is omitted, then the
-jQuery Plugins Site will just assume that your plugins works with jQuery.
+jQuery Plugins Site will just assume that your plugin works with jQuery.
