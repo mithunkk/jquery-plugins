@@ -52,6 +52,11 @@ This is a little bit confusing to explain, but matches what you see in practice
 when people create tags in git like "v1.2.3" and then do "git describe" to generate
 a patch version.
 
+## title
+
+A nice complete and pretty title of your plugin. Include jQuery (if you want) and
+mixed case, unlike name (see above).
+
 ## description
 
 Put a description in it. It's a string. This helps people discover your
