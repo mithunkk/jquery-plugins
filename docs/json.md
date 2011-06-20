@@ -55,7 +55,7 @@ a patch version.
 ## title
 
 A nice complete and pretty title of your plugin. Include jQuery (if you want) and
-space and mixed case, unlike name (see above).
+spaces and mixed case, unlike name (see above).
 
 ## description
 
