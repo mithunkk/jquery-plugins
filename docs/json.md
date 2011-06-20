@@ -81,11 +81,7 @@ is an object with a "name" field and optionally "url" and "email", like this:
     , "url" : "http://barnyrubble.tumblr.com/"
     }
 
-Or you can shorten that all into a single string, and it will be parsed for you:
-
-    "Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)
-
-Both email and url are optional either way.
+Both the email and url are optional.
 
 ## licenses
 
