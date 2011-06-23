@@ -20,12 +20,17 @@ The name is what your thing is called. Some tips:
 
 * Don't put "js" or "jquery" in the name. It's assumed that it's js, since you're
   writing a package.json file, and it's assumed that it's a jQuery plugin, because
-  you're registering it on the jQuery Plugins Site.
+  you're registering it on the jQuery Plugins Site. Additionally, you will be listing
+  `jquery` as a dependency, along with compatible versions (see 'Dependencies' below). 
 * The name ends up being part of a URL. Any name with non-url-safe characters will
-  be rejected. Also, it can't start with a dot or an underscore.
+  be rejected. Also, it can't start with a dot or an underscore. The jQuery Plugins
+  Site is UTF-8.
 * The name should be short, but also reasonably descriptive.
 * You may want to check the jQuery Plugins Site to see if there's something by that
   name already, before you get too attached to it. http://plugins.jquery.com/
+* If you have a plugin with the same name as a plugin already in the jQuery Plugins
+  Site, either consider renaming your plugin or namespace it. For example, jQuery UI
+  plugins are listed with the "ui-" prefix (e.g. ui-dialog, ui-autocomplete).
 
 ## version
 
@@ -131,7 +136,17 @@ html project page that you put in your browser. It's for computers.
 
 Dependencies are specified with a simple hash of package name to version
 range. The version range is EITHER a string which has one or more
-space-separated descriptors, OR a range like "fromVersion - toVersion"
+space-separated descriptors, OR a range like "fromVersion - toVersion".
+
+If a plugin that you depend on uses other plugins as dependencies that your plugin
+uses as well, we recommend you list those also. In the event that the depended on 
+plugin alters its dependencies, your plugin's dependency tree won't be affected.
+
+Libraries such as jQuery or underscore, though not plugins, should be listed as
+dependencies as well. This gives you the flexibility to specify compatible versions
+of each library you depend on.
+
+### Specifying Versions
 
 Version range descriptors may be any of the following styles, where "version"
 is a semver compatible version identifier.
@@ -199,25 +214,3 @@ digits after the first "x" are ignored.
 ## bundledDependencies
 
 Array of package names that will be bundled when publishing the package.
-
-## engines
-
-Packages/1.0 says that you can have an "engines" field with an array of engine
-names. However, it has no provision for specifying which version of the engine
-your stuff runs on.
-
-With the jQuery Plugins Site, you can use either of the following styles to
-specify the version of jQuery that your plugin works with:
-
-    { "engines" : [ "jquery >=1.4.4 <1.6.1" ] }
-
-or:
-
-    { "engines" : { "jquery" : ">=1.4.4 <1.6.1" } }
-
-And, like with dependencies, if you don't specify the version (or if you
-specify "*" as the version), then any version of jQuery will do.
-
-If you specify an "engines" field, then the jQuery Plugins Site will require
-that "jquery" be somewhere on that list. If "engines" is omitted, then the
-jQuery Plugins Site will just assume that your plugin works with jQuery.
